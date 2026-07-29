@@ -51,7 +51,6 @@ include('head.php');
 <?php include('footer.php')
 ?>
 </div>
-<p> hawa</p>
 </body>
 
 </html>
