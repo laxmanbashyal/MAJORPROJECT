@@ -636,7 +636,7 @@ include("head.php");
   <div class="footer-inner">
     <div class="footer-col footer-brand">
       <div class="footer-logo">
-        <span class="brand-badge"><img src="image/glossy1.jpg" alt="Logo" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span>
+        <span class="brand-badge"><img src="" alt="Logo" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span>
         <span>BloodBankPro</span>
       </div>
       <p>Connecting voluntary blood donors with hospitals and patients in real time, inspired by the spirit of the Red Cross.</p>
@@ -645,9 +645,9 @@ include("head.php");
     <div class="footer-col">
       <h4>Quick Links</h4>
       <a href="home.php">Home</a>
-      <a href="need_blood.php">Blood Availability</a>
-      <a href="donate_blood.php">Donation Programs</a>
-      <a href="why_donate_blood.php">Eligibility Test</a>
+      <a href="why_donate_blood.php">Why donate Blood</a>
+      <a href="need_blood.php">Blood request</a>
+      <a href="contact_us.php">Contact Us</a>
     </div>
 
     <div class="footer-col">
