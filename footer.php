@@ -1,29 +1,8 @@
-<html>
-<head>
-  <style>
-  #footer {
-
-  position:absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 75px;
-  background-color:#000000;
-  color:white;
-  text-align: center;
-}
-  </style>
-</head>
-<body>
-  <div id="footer" >
-  <b><center>COPYRIGHT © 2020<br>
-  Blood Bank & Donation Management
-  <br>
-  ALL RIGHTS RESERVED.
-  </center>
-  </div>
-
-
-</body>
-
-</html>
+<style>
+  .bbms-footer { margin-top:0; background:#F8FAFC; border-top:1px solid #E5E7EB; color:#667085; }
+  .bbms-footer__content { padding:64px 0 48px; } .bbms-footer__brand { display:flex; align-items:center; gap:10px; margin-bottom:14px; color:#172033; font-size:18px; font-weight:800; } .bbms-footer__mark { display:flex; align-items:center; justify-content:center; width:34px; height:34px; color:#fff; background:#E30613; border-radius:50%; }
+  .bbms-footer h5 { margin:4px 0 16px; color:#172033; font-size:14px; font-weight:800; } .bbms-footer p,.bbms-footer li { font-size:13px; line-height:1.7; } .bbms-footer ul { margin:0; padding:0; list-style:none; } .bbms-footer li+li { margin-top:8px; } .bbms-footer a { color:#667085; text-decoration:none; } .bbms-footer a:hover { color:#E30613; text-decoration:none; }
+  .bbms-social { display:flex; gap:8px; margin-top:18px; } .bbms-social a { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border:1px solid #E5E7EB; border-radius:50%; color:#667085; } .bbms-social a:hover { color:#E30613; border-color:#E30613; }
+  .blood-badges { display:flex; flex-wrap:wrap; gap:8px; } .blood-badge { min-width:39px; padding:5px 8px; color:#E30613; background:#fff; border:1px solid #E5E7EB; border-radius:99px; text-align:center; font-size:12px; font-weight:800; } .bbms-contact-item { display:flex; gap:10px; margin-bottom:9px; font-size:13px; line-height:1.5; } .bbms-contact-icon { color:#E30613; } .bbms-footer__bottom { padding:18px 0; border-top:1px solid #E5E7EB; color:#98A2B3; font-size:12px; }
+</style>
+<footer class="bbms-footer"><div class="container bbms-footer__content"><div class="row"><div class="col-sm-6 col-lg-4 mb-4 mb-lg-0"><div class="bbms-footer__brand"><span class="bbms-footer__mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2S5 10.1 5 15.2A7 7 0 0 0 19 15.2C19 10.1 12 2.2 12 2.2Z"/></svg></span>BBMS</div><p class="mb-0">Connecting blood donors with patients who need safe, timely care.</p><div class="bbms-social"><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="Twitter">t</a><a href="#" aria-label="YouTube">▶</a></div></div><div class="col-6 col-lg-2 mb-4 mb-lg-0"><h5>Quick Links</h5><ul><li><a href="home.php">Home</a></li><li><a href="need_blood.php">Blood Availability</a></li><li><a href="donate_blood.php">Donation Programs</a></li><li><a href="why_donate_blood.php">Eligibility Test</a></li><li><a href="about_us.php">About</a></li><li><a href="contact_us.php">Contact</a></li></ul></div><div class="col-6 col-lg-2 mb-4 mb-lg-0"><h5>Blood Groups</h5><div class="blood-badges"><span class="blood-badge">A+</span><span class="blood-badge">A-</span><span class="blood-badge">B+</span><span class="blood-badge">B-</span><span class="blood-badge">AB+</span><span class="blood-badge">AB-</span><span class="blood-badge">O+</span><span class="blood-badge">O-</span></div></div><div class="col-sm-6 col-lg-4"><h5>Contact Information</h5><div class="bbms-contact-item"><span class="bbms-contact-icon">⌖</span><span>Hisar, Haryana (125001)</span></div><div class="bbms-contact-item"><span class="bbms-contact-icon">☎</span><a href="tel:7056550477">7056550477</a></div><div class="bbms-contact-item"><span class="bbms-contact-icon">✉</span><a href="mailto:bloodbank@gmail.com">bloodbank@gmail.com</a></div><div class="bbms-contact-item"><span class="bbms-contact-icon">◷</span><span>24/7 Emergency Support</span></div></div></div></div><div class="bbms-footer__bottom"><div class="container text-center">&copy; 2026 Blood Bank Management System. All Rights Reserved.</div></div></footer>
