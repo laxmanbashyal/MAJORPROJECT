@@ -20,6 +20,7 @@
       --bg: #f7f9fc;
     }
 
+
     * {
       box-sizing: border-box;
     }
@@ -406,6 +407,13 @@
   background: #0f172a;
   color: #cbd5e1;
 }
+
+</head>
+<style>
+  
+</style>
+<body>
+
 
 .footer-inner {
   max-width: 1160px;
