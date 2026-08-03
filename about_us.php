@@ -16,10 +16,9 @@
 <body>
 
 
-<?php 
-$active ='about';
-include('head.php');
-
+<?php
+$active = 'about';
+include 'head.php';
 ?>
 
 
@@ -30,16 +29,15 @@ include('head.php');
     <div class="col-lg-6">
         <h1 class="mt-4 mb-3">About Us</h1>
         <p> <?php
-          include 'conn.php';
-          $sql=$sql= "select * from pages where page_type='aboutus'";
-          $result=mysqli_query($conn,$sql);
-          if(mysqli_num_rows($result)>0)   {
-              while($row = mysqli_fetch_assoc($result)) {
-                echo $row['page_data'];
-              }
-            }
-
-         ?>
+        include 'conn.php';
+        $sql = $sql = "select * from pages where page_type='aboutus'";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+          while ($row = mysqli_fetch_assoc($result)) {
+            echo $row['page_data'];
+          }
+        }
+        ?>
       </p>
 
     </div>
@@ -49,8 +47,7 @@ include('head.php');
 </div>
 </div></div>
 
-<?php include('footer.php')
-?>
+<?php include 'footer.php'; ?>
 </div>
 </body>
 

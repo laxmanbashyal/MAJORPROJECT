@@ -14,9 +14,9 @@
 <body>
 
 
-<?php 
-$active ='why';
-include('head.php');
+<?php
+$active = 'why';
+include 'head.php';
 ?>
 
 <div id="page-container" style="margin-top:50px; position: relative;min-height: 84vh;">
@@ -27,16 +27,15 @@ include('head.php');
         <h1 class="mt-4 mb-3">Why Should I Donate Blood ? </h1>
         <p>
           <?php
-            include 'conn.php';
-            $sql=$sql= "select * from pages where page_type='donor'";
-            $result=mysqli_query($conn,$sql);
-            if(mysqli_num_rows($result)>0)   {
-                while($row = mysqli_fetch_assoc($result)) {
-                  echo $row['page_data'];
-                }
-              }
-
-           ?>
+          include 'conn.php';
+          $sql = $sql = "select * from pages where page_type='donor'";
+          $result = mysqli_query($conn, $sql);
+          if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo $row['page_data'];
+            }
+          }
+          ?>
       </p>
 
     </div>
@@ -48,8 +47,7 @@ include('head.php');
 
 </div>
 
-<?php include('footer.php')
-?>
+<?php include 'footer.php'; ?>
 </div>
 </body>
 

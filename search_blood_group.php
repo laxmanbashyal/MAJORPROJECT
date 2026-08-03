@@ -1,12 +1,11 @@
 <?php
 
-$bg=$_POST['blood'];
-$conn=mysqli_connect("localhost","root","","blood_donation") or die("Connection error");
-$sql= "select * from donor_details where donor_blood='{$bg}' order by rand() limit 5";
-$result=mysqli_query($conn,$sql) or die("query unsuccessful.");
-  if(mysqli_num_rows($result)>0)   {
-  while($row = mysqli_fetch_assoc($result)) {
-    ?>
+$bg = $_POST['blood'];
+($conn = mysqli_connect('localhost', 'root', '', 'blood_donation')) or die('Connection error');
+$sql = "select * from donor_details where donor_blood='{$bg}' order by rand() limit 5";
+($result = mysqli_query($conn, $sql)) or die('query unsuccessful.');
+if (mysqli_num_rows($result) > 0) {
+  while ($row = mysqli_fetch_assoc($result)) { ?>
     <div class="row">
     <div class="col-lg-4 col-sm-6 portfolio-item" ><br>
     <div class="card" style="width:300px">
@@ -25,13 +24,9 @@ $result=mysqli_query($conn,$sql) or die("query unsuccessful.");
       </div>
 </div>
 
-<?php
-  }
+<?php }
+} else {
+  echo '<div class="alert alert-danger">No Donor Found For your search Blood group </div>';
 }
-  else
-  {
-
-      echo '<div class="alert alert-danger">No Donor Found For your search Blood group </div>';
-
-  } ?>
+?>
 </div>

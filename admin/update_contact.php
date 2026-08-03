@@ -25,18 +25,17 @@
 
   <?php
   include 'conn.php';
-    include 'session.php';
-    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    ?>
+  include 'session.php';
+  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) { ?>
 
 <div id="header">
-<?php include 'header.php';
-?>
+<?php include 'header.php'; ?>
 </div>
 <div id="sidebar">
-<?php 
-$active="contact";
- include 'sidebar.php'; ?>
+<?php
+$active = 'contact';
+include 'sidebar.php';
+?>
 
 </div>
 <div id="content">
@@ -49,19 +48,18 @@ $active="contact";
         </div>
       </div>
       <hr>
-      <?php if(isset($_POST['update']))
-      {
-        $address=$_POST['address'];
-        $number=$_POST['email'];
-        $email=$_POST['contactno'];
-        $conn=mysqli_connect("localhost","root","","blood_donation") or die("Connection error");
-        $sql= "update contact_info set contact_address='{$address}', contact_mail='{$email}', contact_phone='{$number}' where contact_id='1'";
-        $result=mysqli_query($conn,$sql) or die("query unsuccessful.");
-      echo '<div class="alert alert-success"><b>Contact Details Updated Successfully.</b></div>';
+      <?php if (isset($_POST['update'])) {
+        $address = $_POST['address'];
+        $number = $_POST['email'];
+        $email = $_POST['contactno'];
+        ($conn = mysqli_connect('localhost', 'root', '', 'blood_donation')) or
+          die('Connection error');
+        $sql = "update contact_info set contact_address='{$address}', contact_mail='{$email}', contact_phone='{$number}' where contact_id='1'";
+        ($result = mysqli_query($conn, $sql)) or die('query unsuccessful.');
+        echo '<div class="alert alert-success"><b>Contact Details Updated Successfully.</b></div>';
 
         mysqli_close($conn);
-      }
-      ?>
+      } ?>
 
 
       <div class="row">
@@ -114,10 +112,7 @@ $active="contact";
         </div>
       </div>
     </div>
-  <?php
- } else {
-     echo '<div class="alert alert-danger"><b> Please Login First To Access Admin Portal.</b></div>';
-     ?>
+  <?php } else {echo '<div class="alert alert-danger"><b> Please Login First To Access Admin Portal.</b></div>'; ?>
      <form method="post" name="" action="login.php" class="form-horizontal">
        <div class="form-group">
          <div class="col-sm-8 col-sm-offset-4" style="float:left">

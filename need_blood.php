@@ -12,9 +12,10 @@
 </head>
 
 <body>
-  <?php 
-  $active ='need';
-  include('head.php') ?>
+  <?php
+  $active = 'need';
+  include 'head.php';
+  ?>
 
   <div id="page-container" style="margin-top:50px; position: relative;min-height: 84vh;">
     <div class="container">
@@ -33,13 +34,13 @@
   <div><select name="blood" class="form-control" required>
     <option value=""selected disabled>Select</option>
     <?php
-      include 'conn.php';
-      $sql= "select * from blood";
-      $result=mysqli_query($conn,$sql) or die("query unsuccessful.");
-    while($row=mysqli_fetch_assoc($result)){
-     ?>
-     <option value=" <?php echo $row['blood_id'] ?>"> <?php echo $row['blood_group'] ?> </option>
-    <?php } ?>
+    include 'conn.php';
+    $sql = 'select * from blood';
+    ($result = mysqli_query($conn, $sql)) or die('query unsuccessful.');
+    while ($row = mysqli_fetch_assoc($result)) { ?>
+     <option value=" <?php echo $row['blood_id']; ?>"> <?php echo $row['blood_group']; ?> </option>
+    <?php }
+    ?>
 </select>
 </div>
 </div>
@@ -54,14 +55,12 @@
 </div>
 
 </div><div class="row">
-<?php if(isset($_POST['search'])){
-
-  $bg=$_POST['blood'];
-  $sql= "select * from donor_details join blood where donor_details.donor_blood=blood.blood_id AND donor_blood='{$bg}' order by rand() limit 5";
-  $result=mysqli_query($conn,$sql) or die("query unsuccessful.");
-    if(mysqli_num_rows($result)>0)   {
-    while($row = mysqli_fetch_assoc($result)) {
-      ?>
+<?php if (isset($_POST['search'])) {
+  $bg = $_POST['blood'];
+  $sql = "select * from donor_details join blood where donor_details.donor_blood=blood.blood_id AND donor_blood='{$bg}' order by rand() limit 5";
+  ($result = mysqli_query($conn, $sql)) or die('query unsuccessful.');
+  if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) { ?>
 
       <div class="col-lg-4 col-sm-6 portfolio-item" ><br>
       <div class="card" style="width:300px">
@@ -80,20 +79,15 @@
         </div>
   </div>
 
-  <?php
-    }
+  <?php }
+  } else {
+    echo '<div class="alert alert-danger">No Donor Found For your search Blood group </div>';
   }
-    else
-    {
-
-        echo '<div class="alert alert-danger">No Donor Found For your search Blood group </div>';
-
-    }
 } ?>
 </div>
 </div>
 </div>
-<?php include 'footer.php' ?>
+<?php include 'footer.php'; ?>
 </div>
 </body>
 
