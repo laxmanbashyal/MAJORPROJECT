@@ -53,12 +53,12 @@
       <li class="dropdown"><a class="dropdown-toggle" id="qw" data-toggle="dropdown" href="#" style="font-weight:bold;color:white "> <span class="glyphicon glyphicon-user"></span>&nbsp&nbsp
         <?php
         include 'conn.php';
-        $username=$_SESSION['username'];
-        $sql="select * from admin_info where admin_username='$username'";
-        $result=mysqli_query($conn,$sql) or die("query failed.");
-        $row=mysqli_fetch_assoc($result);
-        echo "Hello ".$row['admin_name'];
-       ?><span class="caret"></span></a>
+        $username = $_SESSION['username'];
+        $sql = "select * from admin_info where admin_username='$username'";
+        ($result = mysqli_query($conn, $sql)) or die('query failed.');
+        $row = mysqli_fetch_assoc($result);
+        echo 'Hello ' . $row['admin_name'];
+        ?><span class="caret"></span></a>
         <ul class="dropdown-menu" style="background-color:#D6EAF8;">
           <li><a href="change_password.php" style="color:#DC7633  ">Change Password </a></li>
           <li><a href="logout.php" style="color:#D35400 ;">Logout</a></li>
