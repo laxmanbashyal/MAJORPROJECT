@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="Browse upcoming blood donation programs and learn why donating blood saves lives.">
 <title>Donation Programs & Why Donate Blood | BloodBankPro</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -540,9 +541,6 @@
   .mission { max-width: 1160px; margin: 0 auto 40px; padding: 0 24px; }
   .mission .panel { border-left: 5px solid var(--crimson); background: var(--paper-2); }
 
-  .site-footer { margin-top: 20px; background: var(--ink); color: #cbd5e1; }
-  .footer-bottom { padding: 18px 20px; text-align: center; font-size: 0.88rem; color: #9aa1ab; }
-
   .reveal {
     opacity: 0;
     transform: translateY(16px);
@@ -567,72 +565,12 @@
     .hero { padding: 26px; }
     .panel { padding: 20px; }
   }
-  .footer-inner {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 40px 20px 24px;
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1.2fr 1fr;
-  gap: 24px;
-}
-
-.footer-col h4 {
-  color: #fff;
-  font-family: 'Fraunces', serif;
-  font-size: 1rem;
-  margin: 0 0 14px;
-}
-
-.footer-col a {
-  display: block;
-  color: #cbd5e1;
-  text-decoration: none;
-  font-size: 0.94rem;
-  margin-bottom: 10px;
-  transition: color 0.2s ease;
-}
-
-.footer-col a:hover {
-  color: #ff8a95;
-}
-
-.footer-col p {
-  font-size: 0.92rem;
-  line-height: 1.6;
-  margin: 0 0 10px;
-  color: #94a3b8;
-}
-
-.footer-brand .footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #fff;
-  font-family: 'Fraunces', serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.footer-socials {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 16px 20px;
-  text-align: center;
-  font-size: 0.88rem;
-  color: #94a3b8;
-}
 </style>
 </head>
 <body>
 <?php
-$active = "why";
-include("head.php");
+$active = 'why';
+include 'head.php';
 ?>
 
 <div class="wrap page-head">
@@ -882,47 +820,11 @@ include("head.php");
   </article>
 </section>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-col footer-brand">
-      <div class="footer-logo">
-        <span class="brand-badge"><img src="" alt="Logo" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span>
-        <span>BloodBankPro</span>
-      </div>
-      <p>Connecting voluntary blood donors with hospitals and patients in real time, inspired by the spirit of the Red Cross.</p>
-    </div>
+<?php include 'footer.php'; ?>
 
-    <div class="footer-col">
-      <h4>Quick Links</h4>
-      <a href="home.php">Home</a>
-      <a href="why_donate_blood.php">Why donate Blood</a>
-      <a href="need_blood.php">Blood request</a>
-      <a href="contact_us.php">Contact Us</a>
-    </div>
-
-    <div class="footer-col">
-      <h4>Contact Us</h4>
-      <p>📍 Butwal Blood Bank</p>
-      <p>📞 +977 98X-XXXXXXX</p>
-      <p>✉️ support@bloodbankpro.com</p>
-      <p>🕒 Available 24/7 for emergencies</p>
-    </div>
-
-    <div class="footer-col">
-      <h4>Follow Us</h4>
-      <div class="footer-socials">
-        <a href="https://www.facebook.com/bloodbankpro" aria-label="Facebook" target="_blank">Facebook</a>
-        <a href="https://www.instagram.com/bloodbankpro" aria-label="Instagram" target="_blank">Instagram</a>
-        <a href="https://twitter.com/bloodbankpro" aria-label="Twitter" target="_blank">Twitter</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    COPYRIGHT © 2026 Blood Bank and Donation Management. ALL RIGHTS RESERVED.
-  </div>
-</footer>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
 (function () {
   var searchInput = document.getElementById('programSearch');

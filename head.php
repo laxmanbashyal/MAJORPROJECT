@@ -88,11 +88,21 @@
     </button>
     <div class="collapse navbar-collapse" id="bbmsNavigation">
       <div class="navbar-nav ml-auto align-items-lg-center">
-        <a href="about_us.php" class="nav-link<?php if($active=='about') echo ' act'; ?>">About Us</a>
-        <a href="why_donate_blood.php" class="nav-link<?php if($active=='why') echo ' act'; ?>">Why Donate Blood</a>
-        <a href="donate_blood.php" class="nav-link<?php if($active=='donate') echo ' act'; ?>">Become A Donor</a>
-        <a href="need_blood.php" class="nav-link<?php if($active=='need') echo ' act'; ?>">Need Blood</a>
-        <a href="contact_us.php" class="nav-link<?php if($active=='contact') echo ' act'; ?>">Contact Us</a>
+        <a href="about_us.php" class="nav-link<?php if ($active == 'about') {
+          echo ' act';
+        } ?>">About Us</a>
+        <a href="why_donate_blood.php" class="nav-link<?php if ($active == 'why') {
+          echo ' act';
+        } ?>">Why Donate Blood</a>
+        <a href="donate_blood.php" class="nav-link<?php if ($active == 'donate') {
+          echo ' act';
+        } ?>">Become A Donor</a>
+        <a href="need_blood.php" class="nav-link<?php if ($active == 'need') {
+          echo ' act';
+        } ?>">Need Blood</a>
+        <a href="contact_us.php" class="nav-link<?php if ($active == 'contact') {
+          echo ' act';
+        } ?>">Contact Us</a>
         <a href="admin/login.php" class="nav-link admin-login">Login as Admin</a>
       </div>
     </div>

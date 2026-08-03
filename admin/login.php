@@ -41,18 +41,18 @@
   session_start();
   include 'conn.php';
 
-  if (isset($_POST["login"])) {
-    $username = mysqli_real_escape_string($conn, $_POST["username"]);
-    $password = mysqli_real_escape_string($conn, $_POST["password"]);
+  if (isset($_POST['login'])) {
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
 
     $sql = "SELECT * FROM admin_info WHERE admin_username='$username' AND admin_password='$password'";
-    $result = mysqli_query($conn, $sql) or die("query failed.");
+    ($result = mysqli_query($conn, $sql)) or die('query failed.');
 
     if (mysqli_num_rows($result) > 0) {
       $_SESSION['loggedin'] = true;
       $_SESSION['username'] = $username;
-      header("Location: dashboard.php");
-      exit;
+      header('Location: dashboard.php');
+      exit();
     } else {
       echo '<div class="alert alert-danger mt-3">Username and password do not match.</div>';
     }

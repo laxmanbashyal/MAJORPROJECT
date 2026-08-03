@@ -13,8 +13,9 @@
 
 <body>
 <?php
-$active ='donate';
- include('head.php') ?>
+$active = 'donate';
+include 'head.php';
+?>
 
 <div id="page-container" style="margin-top:50px; position: relative;min-height: 84vh;">
   <div class="container">
@@ -58,13 +59,13 @@ $active ='donate';
 <div><select name="blood" class="form-control" required>
   <option value=""selected disabled>Select</option>
   <?php
-    include 'conn.php';
-    $sql= "select * from blood";
-    $result=mysqli_query($conn,$sql) or die("query unsuccessful.");
-  while($row=mysqli_fetch_assoc($result)){
-   ?>
-   <option value=" <?php echo $row['blood_id'] ?>"> <?php echo $row['blood_group'] ?> </option>
-  <?php } ?>
+  include 'conn.php';
+  $sql = 'select * from blood';
+  ($result = mysqli_query($conn, $sql)) or die('query unsuccessful.');
+  while ($row = mysqli_fetch_assoc($result)) { ?>
+   <option value=" <?php echo $row['blood_id']; ?>"> <?php echo $row['blood_group']; ?> </option>
+  <?php }
+  ?>
 </select>
 </div>
 </div>
@@ -82,7 +83,7 @@ $active ='donate';
 </form>
 </div>
 </div>
-<?php include('footer.php') ?>
+<?php include 'footer.php'; ?>
 </div>
 </body>
 </html>

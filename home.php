@@ -1,36 +1,85 @@
 ﻿<?php
 $active = 'home';
 $availability = [
-    ['type' => 'A+', 'units' => 145, 'status' => 'Available', 'statusClass' => ''],
-    ['type' => 'A-', 'units' => 32, 'status' => 'Low', 'statusClass' => 'status--low'],
-    ['type' => 'B+', 'units' => 98, 'status' => 'Available', 'statusClass' => ''],
-    ['type' => 'B-', 'units' => 18, 'status' => 'Critical', 'statusClass' => 'status--critical'],
-    ['type' => 'O+', 'units' => 210, 'status' => 'Available', 'statusClass' => ''],
-    ['type' => 'O-', 'units' => 25, 'status' => 'Critical', 'statusClass' => 'status--critical'],
-    ['type' => 'AB+', 'units' => 67, 'status' => 'Available', 'statusClass' => ''],
-    ['type' => 'AB-', 'units' => 12, 'status' => 'Critical', 'statusClass' => 'status--critical'],
+  ['type' => 'A+', 'units' => 145, 'status' => 'Available', 'statusClass' => ''],
+  ['type' => 'A-', 'units' => 32, 'status' => 'Low', 'statusClass' => 'status--low'],
+  ['type' => 'B+', 'units' => 98, 'status' => 'Available', 'statusClass' => ''],
+  ['type' => 'B-', 'units' => 18, 'status' => 'Critical', 'statusClass' => 'status--critical'],
+  ['type' => 'O+', 'units' => 210, 'status' => 'Available', 'statusClass' => ''],
+  ['type' => 'O-', 'units' => 25, 'status' => 'Critical', 'statusClass' => 'status--critical'],
+  ['type' => 'AB+', 'units' => 67, 'status' => 'Available', 'statusClass' => ''],
+  ['type' => 'AB-', 'units' => 12, 'status' => 'Critical', 'statusClass' => 'status--critical'],
 ];
 $impactStats = [
-    ['icon' => '&#9733;', 'value' => '12,480', 'label' => 'Total Donors', 'cardClass' => ''],
-    ['icon' => '&#128165;', 'value' => '607', 'label' => 'Blood Units Available', 'cardClass' => 'impact-card--red'],
-    ['icon' => '&#10004;', 'value' => '1,243', 'label' => 'Donations This Month', 'cardClass' => 'impact-card--green'],
-    ['icon' => '&#9889;', 'value' => '38,200+', 'label' => 'Lives Saved', 'cardClass' => 'impact-card--purple'],
+  ['icon' => '&#9733;', 'value' => '12,480', 'label' => 'Total Donors', 'cardClass' => ''],
+  [
+    'icon' => '&#128165;',
+    'value' => '607',
+    'label' => 'Blood Units Available',
+    'cardClass' => 'impact-card--red',
+  ],
+  [
+    'icon' => '&#10004;',
+    'value' => '1,243',
+    'label' => 'Donations This Month',
+    'cardClass' => 'impact-card--green',
+  ],
+  [
+    'icon' => '&#9889;',
+    'value' => '38,200+',
+    'label' => 'Lives Saved',
+    'cardClass' => 'impact-card--purple',
+  ],
 ];
 $benefits = [
-    ['icon' => '&#10003;', 'title' => 'One Donation = 3 Lives Saved', 'text' => 'Each donation is separated into components that help multiple patients.'],
-    ['icon' => '&#9679;', 'title' => 'Takes Only 1 Hour', 'text' => 'The entire process including registration and recovery takes about 60 minutes.'],
-    ['icon' => '&#10084;', 'title' => 'Health Benefits for Donors', 'text' => 'Regular donation reduces risk of heart disease and stimulates blood cell production.'],
+  [
+    'icon' => '&#10003;',
+    'title' => 'One Donation = 3 Lives Saved',
+    'text' => 'Each donation is separated into components that help multiple patients.',
+  ],
+  [
+    'icon' => '&#9679;',
+    'title' => 'Takes Only 1 Hour',
+    'text' => 'The entire process including registration and recovery takes about 60 minutes.',
+  ],
+  [
+    'icon' => '&#10084;',
+    'title' => 'Health Benefits for Donors',
+    'text' =>
+      'Regular donation reduces risk of heart disease and stimulates blood cell production.',
+  ],
 ];
 $requirements = [
-    ['value' => '18–65', 'label' => 'Age Range', 'text' => 'Eligible donor age'],
-    ['value' => '56 days', 'label' => 'Wait Period', 'text' => 'Between donations'],
-    ['value' => '50 kg', 'label' => 'Min. Weight', 'text' => 'Required to donate'],
-    ['value' => '475 ml', 'label' => 'Blood Drawn', 'text' => 'Per donation'],
+  ['value' => '18–65', 'label' => 'Age Range', 'text' => 'Eligible donor age'],
+  ['value' => '56 days', 'label' => 'Wait Period', 'text' => 'Between donations'],
+  ['value' => '50 kg', 'label' => 'Min. Weight', 'text' => 'Required to donate'],
+  ['value' => '475 ml', 'label' => 'Blood Drawn', 'text' => 'Per donation'],
 ];
 $programs = [
-    ['title' => 'City Hospital Blood Drive', 'date' => 'June 15, 2026', 'location' => 'City General Hospital', 'registered' => '34', 'capacity' => '50', 'progress' => 68],
-    ['title' => 'Community Health Fair', 'date' => 'June 22, 2026', 'location' => 'Central Park Pavilion', 'registered' => '61', 'capacity' => '80', 'progress' => 76],
-    ['title' => 'University Campus Drive', 'date' => 'July 5, 2026', 'location' => 'State University, Hall A', 'registered' => '45', 'capacity' => '120', 'progress' => 38],
+  [
+    'title' => 'City Hospital Blood Drive',
+    'date' => 'June 15, 2026',
+    'location' => 'City General Hospital',
+    'registered' => '34',
+    'capacity' => '50',
+    'progress' => 68,
+  ],
+  [
+    'title' => 'Community Health Fair',
+    'date' => 'June 22, 2026',
+    'location' => 'Central Park Pavilion',
+    'registered' => '61',
+    'capacity' => '80',
+    'progress' => 76,
+  ],
+  [
+    'title' => 'University Campus Drive',
+    'date' => 'July 5, 2026',
+    'location' => 'State University, Hall A',
+    'registered' => '45',
+    'capacity' => '120',
+    'progress' => 38,
+  ],
 ];
 ?>
 <!DOCTYPE html>
@@ -49,7 +98,7 @@ $programs = [
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<?php include('head.php'); ?>
+<?php include 'head.php'; ?>
 <main>
   <section class="hero">
     <div class="container">
@@ -120,7 +169,9 @@ $programs = [
             <div class="availability-card">
               <div class="blood-label"><?php echo $stock['type']; ?></div>
               <div class="units"><b><?php echo $stock['units']; ?></b> units</div>
-              <span class="status <?php echo $stock['statusClass']; ?>"><?php echo $stock['status']; ?></span>
+              <span class="status <?php echo $stock['statusClass']; ?>"><?php echo $stock[
+  'status'
+]; ?></span>
             </div>
           </div>
         <?php endforeach; ?>
@@ -199,13 +250,19 @@ $programs = [
               </div>
               <div class="program-body">
                 <h3><?php echo $program['title']; ?></h3>
-                <div class="program-detail"><span>&#9679;</span><?php echo $program['date']; ?></div>
-                <div class="program-detail"><span>&#8226;</span><?php echo $program['location']; ?></div>
+                <div class="program-detail"><span>&#9679;</span><?php echo $program[
+                  'date'
+                ]; ?></div>
+                <div class="program-detail"><span>&#8226;</span><?php echo $program[
+                  'location'
+                ]; ?></div>
                 <div class="program-progress">
                   <span><?php echo $program['registered']; ?> registered</span>
                   <span><?php echo $program['capacity']; ?> slots</span>
                 </div>
-                <div class="program-progressbar"><i style="width:<?php echo $program['progress']; ?>%;"></i></div>
+                <div class="program-progressbar"><i style="width:<?php echo $program[
+                  'progress'
+                ]; ?>%;"></i></div>
                 <a class="button-primary" href="donate_blood.php">Register</a>
               </div>
             </article>
@@ -226,6 +283,6 @@ $programs = [
     </div>
   </section>
 </main>
-<?php include('footer.php'); ?>
+<?php include 'footer.php'; ?>
 </body>
 </html>

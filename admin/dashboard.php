@@ -25,14 +25,16 @@
   <?php
   include 'conn.php';
   include 'session.php';
-  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-  ?>
+  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) { ?>
 
   <div id="header">
     <?php include 'header.php'; ?>
   </div>
   <div id="sidebar">
-    <?php $active="dashboard"; include 'sidebar.php'; ?>
+    <?php
+    $active = 'dashboard';
+    include 'sidebar.php';
+    ?>
   </div>
   <div id="content">
     <div class="content-wrapper">
@@ -53,9 +55,9 @@
                   <div class="panel-body text-light" style="background:#D6EAF8;">
                     <div class="stat-panel text-center">
                       <?php
-                        $sql = "SELECT * FROM donor_details";
-                        $result = mysqli_query($conn, $sql) or die("query failed.");
-                        $row = mysqli_num_rows($result);
+                      $sql = 'SELECT * FROM donor_details';
+                      ($result = mysqli_query($conn, $sql)) or die('query failed.');
+                      $row = mysqli_num_rows($result);
                       ?>
                       <div class="stat-panel-number h1"><?php echo $row; ?></div>
                       <div class="stat-panel-title text-uppercase">Blood Donors Available</div>
@@ -71,9 +73,9 @@
                   <div class="panel-body text-light" style="background:#ABEBC6;">
                     <div class="stat-panel text-center">
                       <?php
-                        $sql1 = "SELECT * FROM contact_query";
-                        $result1 = mysqli_query($conn, $sql1) or die("query failed.");
-                        $row1 = mysqli_num_rows($result1);
+                      $sql1 = 'SELECT * FROM contact_query';
+                      ($result1 = mysqli_query($conn, $sql1)) or die('query failed.');
+                      $row1 = mysqli_num_rows($result1);
                       ?>
                       <div class="stat-panel-number h1"><?php echo $row1; ?></div>
                       <div class="stat-panel-title text-uppercase">All User Queries</div>
@@ -89,9 +91,9 @@
                   <div class="panel-body text-light" style="background:#E8DAEF;">
                     <div class="stat-panel text-center">
                       <?php
-                        $sql2 = "SELECT * FROM contact_query WHERE query_status=2";
-                        $result2 = mysqli_query($conn, $sql2) or die("query failed.");
-                        $row2 = mysqli_num_rows($result2);
+                      $sql2 = 'SELECT * FROM contact_query WHERE query_status=2';
+                      ($result2 = mysqli_query($conn, $sql2)) or die('query failed.');
+                      $row2 = mysqli_num_rows($result2);
                       ?>
                       <div class="stat-panel-number h1"><?php echo $row2; ?></div>
                       <div class="stat-panel-title text-uppercase">Pending Queries</div>
@@ -107,9 +109,7 @@
       </div>
     </div>
   </div>
-  <?php
-  } else {
-  ?>
+  <?php } else { ?>
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-6">
