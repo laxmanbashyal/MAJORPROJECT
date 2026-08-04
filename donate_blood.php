@@ -284,332 +284,344 @@
 </head>
 
 <body>
-<?php
-$active = 'donate';
+  <?php
+  $active = 'donate';
 
-include('head.php');
-?>
+  include('head.php');
+  ?>
 
-<div class="eligibility-wrapper">
-  <div class="page-title">Check if you're eligible to donate blood</div>
+  <div class="eligibility-wrapper">
+    <div class="page-title">Check if you're eligible to donate blood</div>
 
-  <div class="steps" id="stepBar">
-    <div class="step-item active" data-step="1">
-      <div class="step-icon">??</div>
-      <div>Personal<br>Info</div>
+    <div class="steps" id="stepBar">
+      <div class="step-item active" data-step="1">
+        <div class="step-icon">??</div>
+        <div>Personal<br>Info</div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" data-step="2">
+        <div class="step-icon">?</div>
+        <div>Health<br>Status</div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" data-step="3">
+        <div class="step-icon">??</div>
+        <div>Medical<br>History</div>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" data-step="4">
+        <div class="step-icon">?</div>
+        <div>Result</div>
+      </div>
     </div>
-    <div class="step-connector"></div>
-    <div class="step-item" data-step="2">
-      <div class="step-icon">?</div>
-      <div>Health<br>Status</div>
-    </div>
-    <div class="step-connector"></div>
-    <div class="step-item" data-step="3">
-      <div class="step-icon">??</div>
-      <div>Medical<br>History</div>
-    </div>
-    <div class="step-connector"></div>
-    <div class="step-item" data-step="4">
-      <div class="step-icon">?</div>
-      <div>Result</div>
+
+    <div class="card-box">
+      <div id="step-1" class="step-panel">
+        <div class="step-title">Personal Information</div>
+
+        <div class="field-label">Age <span style="color:red">*</span></div>
+        <input type="number" id="age" class="form-control" placeholder="Enter your age" min="18" max="65">
+        <div id="ageError" class="support-text" style="color:#dc2626; display:none;">You are below 18 years old.</div>
+        <div class="support-text">Must be between 18-65 years</div>
+
+        <div class="field-label mt-4">Weight (kg) <span style="color:red">*</span></div>
+        <input type="number" id="weight" class="form-control" placeholder="Enter your weight in kg" min="50">
+        <div id="weightError" class="support-text" style="color:#dc2626; display:none;">You are below 50 kg.</div>
+        <div class="support-text">Minimum 50 kg required</div>
+
+        <div class="field-label mt-4">Gender <span style="color:red">*</span></div>
+        <div class="gender-grid">
+          <button type="button" class="option-btn" data-group="gender" data-value="Male">Male</button>
+          <button type="button" class="option-btn" data-group="gender" data-value="Female">Female</button>
+          <button type="button" class="option-btn" data-group="gender" data-value="Other">Other</button>
+        </div>
+
+        <div class="field-label mt-4">Last Donation Date (if any)</div>
+        <input type="date" id="lastDonation" class="form-control">
+
+        <div class="step-actions">
+          <button type="button" class="btn-nav" disabled>� Previous</button>
+          <button type="button" class="btn-primary-red" onclick="nextStep()">Next �</button>
+        </div>
+      </div>
+
+      <div id="step-2" class="step-panel hidden">
+        <div class="step-title">Current Health Status</div>
+
+        <div class="field-label">Have you had any illness, cold, or flu in the last 14 days?</div>
+        <div class="yes-no-groups">
+          <button type="button" class="option-btn" data-group="illness" data-value="Yes">Yes</button>
+          <button type="button" class="option-btn" data-group="illness" data-value="No">No</button>
+        </div>
+
+        <div class="field-label mt-4">Are you currently taking any prescription medications?</div>
+        <div class="yes-no-groups">
+          <button type="button" class="option-btn" data-group="medication" data-value="Yes">Yes</button>
+          <button type="button" class="option-btn" data-group="medication" data-value="No">No</button>
+        </div>
+
+        <div class="field-label mt-4">Have you gotten a tattoo or piercing in the last 12 months?</div>
+        <div class="yes-no-groups">
+          <button type="button" class="option-btn" data-group="tattoo" data-value="Yes">Yes</button>
+          <button type="button" class="option-btn" data-group="tattoo" data-value="No">No</button>
+        </div>
+
+        <div class="field-label mt-4">Are you currently pregnant or have been pregnant in the last 6 months?</div>
+        <div class="yes-no-groups">
+          <button type="button" class="option-btn" data-group="pregnancy" data-value="Yes">Yes</button>
+          <button type="button" class="option-btn" data-group="pregnancy" data-value="No">No</button>
+        </div>
+
+        <div class="step-actions">
+          <button type="button" class="btn-nav" onclick="prevStep()">� Previous</button>
+          <button type="button" class="btn-primary-red" onclick="nextStep()">Next �</button>
+        </div>
+      </div>
+
+      <div id="step-3" class="step-panel hidden">
+        <div class="step-title">Medical History</div>
+
+        <div class="field-label">Do you have any chronic diseases (diabetes, heart disease, cancer, etc.)?</div>
+        <div class="yes-no-groups">
+          <button type="button" class="option-btn" data-group="chronic" data-value="Yes">Yes</button>
+          <button type="button" class="option-btn" data-group="chronic" data-value="No">No</button>
+        </div>
+
+        <div class="field-label mt-4">Have you ever tested positive for HIV, Hepatitis B or C?</div>
+        <div class="yes-no-groups">
+          <button type="button" class="option-btn" data-group="infection" data-value="Yes">Yes</button>
+          <button type="button" class="option-btn" data-group="infection" data-value="No">No</button>
+        </div>
+
+        <div class="alert alert-info mt-4 mb-0">
+          All information provided is confidential and used solely to ensure donor and recipient safety. A medical
+          professional will conduct a final assessment before donation.
+        </div>
+
+        <div class="step-actions">
+          <button type="button" class="btn-nav" onclick="prevStep()">� Previous</button>
+          <button type="button" class="btn-primary-red" onclick="showResult()">Check Eligibility �</button>
+        </div>
+      </div>
+
+      <div id="step-4" class="step-panel hidden">
+        <div class="result-panel">
+          <div class="result-icon" id="resultIcon">!</div>
+          <div class="result-title" id="resultTitle">Not Eligible at This Time</div>
+          <div class="result-text" id="resultText">
+            Based on your responses, you may not be eligible to donate blood right now. This could be temporary. Please
+            consult a healthcare provider for more information.
+          </div>
+          <div class="reason-box">
+            <ul id="reasonList">
+              <li>Age outside 18-65 range</li>
+              <li>Weight below 50 kg</li>
+              <li>Recent illness or medication</li>
+              <li>Recent tattoo or piercing</li>
+              <li>Pregnancy</li>
+            </ul>
+          </div>
+          <button type="button" class="btn-primary-red" id="resultActionBtn" onclick="restartFlow()">Retake Test</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="card-box">
-    <div id="step-1" class="step-panel">
-      <div class="step-title">Personal Information</div>
+  <script>
+    let currentStep = 1;
+    const stepData = {
+      gender: '',
+      illness: '',
+      medication: '',
+      tattoo: '',
+      pregnancy: '',
+      chronic: '',
+      infection: ''
+    };
 
-      <div class="field-label">Age <span style="color:red">*</span></div>
-      <input type="number" id="age" class="form-control" placeholder="Enter your age" min="18" max="65">
-      <div class="support-text">Must be between 18-65 years</div>
+    function setOption(group, value) {
+      stepData[group] = value;
+      document.querySelectorAll('[data-group="' + group + '"]').forEach(function (button) {
+        button.classList.toggle('active', button.dataset.value === value);
+      });
+    }
 
-      <div class="field-label mt-4">Weight (kg) <span style="color:red">*</span></div>
-      <input type="number" id="weight" class="form-control" placeholder="Enter your weight in kg" min="50">
-      <div class="support-text">Minimum 50 kg required</div>
-
-      <div class="field-label mt-4">Gender <span style="color:red">*</span></div>
-      <div class="gender-grid">
-        <button type="button" class="option-btn" data-group="gender" data-value="Male">Male</button>
-        <button type="button" class="option-btn" data-group="gender" data-value="Female">Female</button>
-        <button type="button" class="option-btn" data-group="gender" data-value="Other">Other</button>
-      </div>
-
-      <div class="field-label mt-4">Last Donation Date (if any)</div>
-      <input type="date" id="lastDonation" class="form-control">
-
-      <div class="step-actions">
-        <button type="button" class="btn-nav" disabled>� Previous</button>
-        <button type="button" class="btn-primary-red" onclick="nextStep()">Next �</button>
-      </div>
-    </div>
-
-    <div id="step-2" class="step-panel hidden">
-      <div class="step-title">Current Health Status</div>
-
-      <div class="field-label">Have you had any illness, cold, or flu in the last 14 days?</div>
-      <div class="yes-no-groups">
-        <button type="button" class="option-btn" data-group="illness" data-value="Yes">Yes</button>
-        <button type="button" class="option-btn" data-group="illness" data-value="No">No</button>
-      </div>
-
-      <div class="field-label mt-4">Are you currently taking any prescription medications?</div>
-      <div class="yes-no-groups">
-        <button type="button" class="option-btn" data-group="medication" data-value="Yes">Yes</button>
-        <button type="button" class="option-btn" data-group="medication" data-value="No">No</button>
-      </div>
-
-      <div class="field-label mt-4">Have you gotten a tattoo or piercing in the last 12 months?</div>
-      <div class="yes-no-groups">
-        <button type="button" class="option-btn" data-group="tattoo" data-value="Yes">Yes</button>
-        <button type="button" class="option-btn" data-group="tattoo" data-value="No">No</button>
-      </div>
-
-      <div class="field-label mt-4">Are you currently pregnant or have been pregnant in the last 6 months?</div>
-      <div class="yes-no-groups">
-        <button type="button" class="option-btn" data-group="pregnancy" data-value="Yes">Yes</button>
-        <button type="button" class="option-btn" data-group="pregnancy" data-value="No">No</button>
-      </div>
-
-      <div class="step-actions">
-        <button type="button" class="btn-nav" onclick="prevStep()">� Previous</button>
-        <button type="button" class="btn-primary-red" onclick="nextStep()">Next �</button>
-      </div>
-    </div>
-
-    <div id="step-3" class="step-panel hidden">
-      <div class="step-title">Medical History</div>
-
-      <div class="field-label">Do you have any chronic diseases (diabetes, heart disease, cancer, etc.)?</div>
-      <div class="yes-no-groups">
-        <button type="button" class="option-btn" data-group="chronic" data-value="Yes">Yes</button>
-        <button type="button" class="option-btn" data-group="chronic" data-value="No">No</button>
-      </div>
-
-      <div class="field-label mt-4">Have you ever tested positive for HIV, Hepatitis B or C?</div>
-      <div class="yes-no-groups">
-        <button type="button" class="option-btn" data-group="infection" data-value="Yes">Yes</button>
-        <button type="button" class="option-btn" data-group="infection" data-value="No">No</button>
-      </div>
-
-      <div class="alert alert-info mt-4 mb-0">
-        All information provided is confidential and used solely to ensure donor and recipient safety. A medical professional will conduct a final assessment before donation.
-      </div>
-
-      <div class="step-actions">
-        <button type="button" class="btn-nav" onclick="prevStep()">� Previous</button>
-        <button type="button" class="btn-primary-red" onclick="showResult()">Check Eligibility �</button>
-      </div>
-    </div>
-
-    <div id="step-4" class="step-panel hidden">
-      <div class="result-panel">
-        <div class="result-icon" id="resultIcon">?</div>
-        <div class="result-title" id="resultTitle">Not Eligible at This Time</div>
-        <div class="result-text" id="resultText">
-          Based on your responses, you may not be eligible to donate blood right now. This could be temporary. Please consult a healthcare provider for more information.
-        </div>
-        <div class="reason-box">
-          <ul id="reasonList">
-            <li>Age outside 18-65 range</li>
-            <li>Weight below 50 kg</li>
-            <li>Recent illness or medication</li>
-            <li>Recent tattoo or piercing</li>
-            <li>Pregnancy</li>
-          </ul>
-        </div>
-        <button type="button" class="btn-primary-red" onclick="restartFlow()">Retake Test</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  let currentStep = 1;
-  const stepData = {
-    gender: '',
-    illness: '',
-    medication: '',
-    tattoo: '',
-    pregnancy: '',
-    chronic: '',
-    infection: ''
-  };
-
-  function setOption(group, value) {
-    stepData[group] = value;
-    document.querySelectorAll('[data-group="' + group + '"]').forEach(function(button) {
-      button.classList.toggle('active', button.dataset.value === value);
+    document.querySelectorAll('.option-btn').forEach(function (button) {
+      button.addEventListener('click', function () {
+        setOption(button.dataset.group, button.dataset.value);
+      });
     });
-  }
 
-  document.querySelectorAll('.option-btn').forEach(function(button) {
-    button.addEventListener('click', function() {
-      setOption(button.dataset.group, button.dataset.value);
-    });
-  });
+    function validateStepOne() {
+      const ageInput = document.getElementById('age');
+      const weightInput = document.getElementById('weight');
+      const age = Number(ageInput.value);
+      const weight = Number(weightInput.value);
+      const ageError = document.getElementById('ageError');
+      const weightError = document.getElementById('weightError');
 
-  function nextStep() {
-    if (currentStep === 1) {
-      const age = Number(document.getElementById('age').value);
-      const weight = Number(document.getElementById('weight').value);
-      const genderSelected = stepData.gender;
+      let isValid = true;
 
-      if (!age || !weight || !genderSelected) {
-        alert('Please complete age, weight and gender before continuing.');
-        return;
+      if (ageInput.value !== '') {
+        if (age < 18) {
+          ageError.style.display = 'block';
+          ageError.textContent = 'You are below 18 years old.';
+          isValid = false;
+        } else if (age > 65) {
+          ageError.style.display = 'block';
+          ageError.textContent = 'You are above 65 years old.';
+          isValid = false;
+        } else {
+          ageError.style.display = 'none';
+        }
+      } else {
+        ageError.style.display = 'none';
+      }
+
+      if (weightInput.value !== '') {
+        if (weight < 50) {
+          weightError.style.display = 'block';
+          weightError.textContent = 'You are below 50 kg.';
+          isValid = false;
+        } else {
+          weightError.style.display = 'none';
+        }
+      } else {
+        weightError.style.display = 'none';
+      }
+
+      return isValid;
+    }
+
+    document.getElementById('age').addEventListener('input', validateStepOne);
+    document.getElementById('weight').addEventListener('input', validateStepOne);
+
+    function nextStep() {
+      if (currentStep === 1) {
+        const age = Number(document.getElementById('age').value);
+        const weight = Number(document.getElementById('weight').value);
+        const genderSelected = stepData.gender;
+
+        if (!age || !weight || !genderSelected) {
+          alert('Please complete age, weight and gender before continuing.');
+          return;
+        }
+
+        if (!validateStepOne()) {
+          alert('Please enter a valid age and weight before continuing.');
+          return;
+        }
+      }
+
+      if (currentStep < 4) {
+        currentStep += 1;
+        updateSteps();
       }
     }
 
-    if (currentStep < 4) {
-      currentStep += 1;
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep -= 1;
+        updateSteps();
+      }
+    }
+
+    function updateSteps() {
+      document.querySelectorAll('.step-panel').forEach(function (panel, index) {
+        panel.classList.toggle('hidden', index + 1 !== currentStep);
+      });
+
+      document.querySelectorAll('.step-item').forEach(function (item) {
+        const stepNumber = Number(item.dataset.step);
+        item.classList.remove('active', 'done');
+        if (stepNumber < currentStep) item.classList.add('done');
+        if (stepNumber === currentStep) item.classList.add('active');
+      });
+    }
+
+    function hasActiveOption(group) {
+      return document.querySelector('[data-group="' + group + '"].active') !== null;
+    }
+
+    function showResult() {
+      const age = Number(document.getElementById('age').value);
+      const weight = Number(document.getElementById('weight').value);
+      const lastDonationDate = document.getElementById('lastDonation').value;
+      const reasons = [];
+
+      const requiredGroups = ['gender', 'illness', 'medication', 'tattoo', 'pregnancy', 'chronic', 'infection'];
+      const missingGroup = requiredGroups.find(function (group) {
+        return !hasActiveOption(group);
+      });
+
+      if (missingGroup) {
+        alert('Please answer every question on the form before checking your eligibility.');
+        return;
+      }
+
+      if (age < 18 || age > 65) reasons.push('Age must be between 18 and 65 years.');
+      if (weight < 50) reasons.push('Weight must be at least 50 kg.');
+      if (lastDonationDate) {
+        const lastDonation = new Date(lastDonationDate + 'T00:00:00');
+        const today = new Date();
+        const diffInDays = Math.floor((today - lastDonation) / (1000 * 60 * 60 * 24));
+
+        if (diffInDays < 120) {
+          reasons.push('Your last donation was less than 4 months ago.');
+        }
+      }
+      if (stepData.illness === 'Yes') reasons.push('You had an illness, cold, or flu in the last 14 days.');
+      if (stepData.medication === 'Yes') reasons.push('You are currently taking prescription medication.');
+      if (stepData.tattoo === 'Yes') reasons.push('You had a tattoo or piercing in the last 12 months.');
+      if (stepData.pregnancy === 'Yes') reasons.push('You are pregnant or were pregnant in the last 6 months.');
+      if (stepData.chronic === 'Yes') reasons.push('You have a chronic disease such as diabetes, heart disease, or cancer.');
+      if (stepData.infection === 'Yes') reasons.push('You tested positive for HIV, Hepatitis B, or Hepatitis C.');
+
+      currentStep = 4;
+      updateSteps();
+
+      const resultTitle = document.getElementById('resultTitle');
+      const resultText = document.getElementById('resultText');
+      const resultIcon = document.getElementById('resultIcon');
+      const reasonList = document.getElementById('reasonList');
+      const resultActionBtn = document.getElementById('resultActionBtn');
+
+      if (reasons.length === 0) {
+        resultTitle.textContent = 'Eligible to Donate';
+        resultText.textContent = 'Based on your answers, you appear eligible to donate blood. Please follow the next instructions from the donation center team.';
+        resultIcon.textContent = '✓';
+        resultIcon.style.background = '#dcfce7';
+        resultIcon.style.color = '#16a34a';
+        reasonList.innerHTML = '<li>You are within the required age range.</li><li>Your weight meets the minimum requirement.</li><li>Your current health history does not show any immediate restrictions.</li>';
+        resultActionBtn.textContent = 'Donate Blood';
+        resultActionBtn.setAttribute('onclick', "window.location.href='why_donate_blood.php'");
+      } else {
+        resultTitle.textContent = 'Not Eligible at This Time';
+        resultText.textContent = 'Based on your responses, you may not be eligible to donate blood right now. This could be temporary. Please consult a healthcare provider for more information.';
+        resultIcon.textContent = '!';
+        resultIcon.style.background = '#fee2e2';
+        resultIcon.style.color = '#dc2626';
+        reasonList.innerHTML = reasons.map(function (reason) {
+          return '<li>' + reason + '</li>';
+        }).join('');
+        resultActionBtn.textContent = 'Retake Test';
+        resultActionBtn.setAttribute('onclick', 'restartFlow()');
+      }
+    }
+
+    function restartFlow() {
+      currentStep = 1;
+      Object.keys(stepData).forEach(function (key) { stepData[key] = ''; });
+      document.querySelectorAll('.option-btn').forEach(function (button) { button.classList.remove('active'); });
+      document.getElementById('age').value = '';
+      document.getElementById('weight').value = '';
+      document.getElementById('lastDonation').value = '';
       updateSteps();
     }
-  }
 
-  function prevStep() {
-    if (currentStep > 1) {
-      currentStep -= 1;
-      updateSteps();
-    }
-  }
-
-  function updateSteps() {
-    document.querySelectorAll('.step-panel').forEach(function(panel, index) {
-      panel.classList.toggle('hidden', index + 1 !== currentStep);
-    });
-
-    document.querySelectorAll('.step-item').forEach(function(item) {
-      const stepNumber = Number(item.dataset.step);
-      item.classList.remove('active', 'done');
-      if (stepNumber < currentStep) item.classList.add('done');
-      if (stepNumber === currentStep) item.classList.add('active');
-    });
-  }
-
-  function showResult() {
-    const age = Number(document.getElementById('age').value);
-    const weight = Number(document.getElementById('weight').value);
-    const reasons = [];
-
-    if (age < 18 || age > 65) reasons.push('Age outside 18-65 range');
-    if (weight < 50) reasons.push('Weight below 50 kg');
-    if (stepData.illness === 'Yes' || stepData.medication === 'Yes' || stepData.tattoo === 'Yes' || stepData.pregnancy === 'Yes' || stepData.chronic === 'Yes' || stepData.infection === 'Yes') {
-      reasons.push('Recent illness or medication');
-      if (stepData.tattoo === 'Yes') reasons.push('Recent tattoo or piercing');
-      if (stepData.pregnancy === 'Yes') reasons.push('Pregnancy');
-    }
-
-    currentStep = 4;
     updateSteps();
-
-    const resultTitle = document.getElementById('resultTitle');
-    const resultText = document.getElementById('resultText');
-    const resultIcon = document.getElementById('resultIcon');
-    const reasonList = document.getElementById('reasonList');
-
-    if (reasons.length === 0) {
-      resultTitle.textContent = 'Eligible to Donate';
-      resultText.textContent = 'Based on your answers, you appear eligible to donate blood. Please follow the next instructions from the donation center team.';
-      resultIcon.textContent = '?';
-      resultIcon.style.background = '#dcfce7';
-      resultIcon.style.color = '#16a34a';
-      reasonList.innerHTML = '<li>You are within the required age range.</li><li>Your weight meets the minimum requirement.</li><li>Your current health history does not show any immediate restrictions.</li>';
-    } else {
-      resultTitle.textContent = 'Not Eligible at This Time';
-      resultText.textContent = 'Based on your responses, you may not be eligible to donate blood right now. This could be temporary. Please consult a healthcare provider for more information.';
-      resultIcon.textContent = '?';
-      resultIcon.style.background = '#fee2e2';
-      resultIcon.style.color = '#dc2626';
-      reasonList.innerHTML = reasons.map(function(reason) {
-        return '<li>' + reason + '</li>';
-      }).join('');
-    }
-  }
-
-  function restartFlow() {
-    currentStep = 1;
-    Object.keys(stepData).forEach(function(key) { stepData[key] = ''; });
-    document.querySelectorAll('.option-btn').forEach(function(button) { button.classList.remove('active'); });
-    document.getElementById('age').value = '';
-    document.getElementById('weight').value = '';
-    document.getElementById('lastDonation').value = '';
-    updateSteps();
-  }
-
-  updateSteps();
-</script>
-
-include 'head.php';
-?>
-
-<div id="page-container" style="margin-top:50px; position: relative;min-height: 84vh;">
-  <div class="container">
-  <div id="content-wrap" style="padding-bottom:50px;">
-<div class="row">
-    <div class="col-lg-6">
-        <h1 class="mt-4 mb-3">Donate Blood </h1>
-      </div>
-</div>
-<form name="donor" action="savedata.php" method="post">
-<div class="row">
-<div class="col-lg-4 mb-4">
-<div class="font-italic">Full Name<span style="color:red">*</span></div>
-<div><input type="text" name="fullname" class="form-control" required></div>
-</div>
-<div class="col-lg-4 mb-4">
-<div class="font-italic">Mobile Number<span style="color:red">*</span></div>
-<div><input type="text" name="mobileno" class="form-control" required></div>
-</div>
-<div class="col-lg-4 mb-4">
-<div class="font-italic">Email Id</div>
-<div><input type="email" name="emailid" class="form-control"></div>
-</div>
-</div>
-<div class="row">
-<div class="col-lg-4 mb-4">
-<div class="font-italic">Age<span style="color:red">*</span></div>
-<div><input type="text" name="age" class="form-control" required></div>
-</div>
-<div class="col-lg-4 mb-4">
-<div class="font-italic">Gender<span style="color:red">*</span></div>
-<div><select name="gender" class="form-control" required>
-<option value="">Select</option>
-<option value="Male">Male</option>
-<option value="Female">Female</option>
-</select>
-</div>
-</div>
-<div class="col-lg-4 mb-4">
-<div class="font-italic">Blood Group<span style="color:red">*</span></div>
-<div><select name="blood" class="form-control" required>
-  <option value=""selected disabled>Select</option>
-  <?php
-  include 'conn.php';
-  $sql = 'select * from blood';
-  ($result = mysqli_query($conn, $sql)) or die('query unsuccessful.');
-  while ($row = mysqli_fetch_assoc($result)) { ?>
-   <option value=" <?php echo $row['blood_id']; ?>"> <?php echo $row['blood_group']; ?> </option>
-  <?php }
-  ?>
-</select>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-lg-4 mb-4">
-<div class="font-italic">Address<span style="color:red">*</span></div>
-<div><textarea class="form-control" name="address" required></textarea></div></div>
-</div>
-<div class="row">
-  <div class="col-lg-4 mb-4">
-  <div><input type="submit" name="submit" class="btn btn-primary" value="Submit" style="cursor:pointer"></div>
-  </div>
-</div>
-</form>
-</div>
-</div>
-<?php include 'footer.php'; ?>
-</div>
+  </script>
 
 </body>
+
 </html>
