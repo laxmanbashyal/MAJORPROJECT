@@ -1,133 +1,109 @@
-<?php include 'session.php'; ?>
-<html>
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<style>
-
-#sidebar{position:relative;margin-top:-20px}
-#content{position:relative;margin-left:210px}
-@media screen and (max-width: 600px) {
-  #content {
-    position:relative;margin-left:auto;margin-right:auto;
-  }
-}
-</style>
-</head>
-
-<body style="color:black">
-  <?php
-  include 'conn.php';
-  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) { ?>
-<div id="header">
-<?php
+<?php 
+include 'session.php';
+$page_title = 'Add Donor';
 $active = 'add';
-include 'header.php';
+include 'conn.php';
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
+    header('Location: login.php');
+    exit();
+}
+
+// Display errors from session
+$errors = isset($_SESSION['donor_errors']) ? $_SESSION['donor_errors'] : array();
+$old_data = isset($_SESSION['donor_data']) ? $_SESSION['donor_data'] : array();
+unset($_SESSION['donor_errors']);
+unset($_SESSION['donor_data']);
 ?>
-</div>
-<div id="sidebar">
-<?php include 'sidebar.php'; ?>
-
-</div>
-<div id="content">
-  <div class="content-wrapper">
+<!DOCTYPE html>
+<html>
+<head>
+    <?php include 'header.php'; ?>
+</head>
+<body>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12 lg-12 sm-12">
-
-          <h1 class="page-title">Add Donor</h1>
-        </div>
-      </div>
-      <hr>
-      <form name="donor" action="save_donor_data.php" method="post">
-      <div class="row">
-      <div class="col-lg-4 mb-4"><br>
-      <div class="font-italic">Full Name<span style="color:red">*</span></div>
-      <div><input type="text" name="fullname" class="form-control" required></div>
-      </div>
-      <div class="col-lg-4 mb-4"><br>
-      <div class="font-italic">Mobile Number<span style="color:red">*</span></div>
-      <div><input type="text" name="mobileno" class="form-control" required></div>
-      </div>
-      <div class="col-lg-4 mb-4"><br>
-      <div class="font-italic">Email Id</div>
-      <div><input type="email" name="emailid" class="form-control"></div>
-      </div>
-      </div>
-
-      <div class="row">
-      <div class="col-lg-4 mb-4"><br>
-      <div class="font-italic">Age<span style="color:red">*</span></div>
-      <div><input type="text" name="age" class="form-control" required></div>
-      </div>
-
-
-      <div class="col-lg-4 mb-4"><br>
-      <div class="font-italic">Gender<span style="color:red">*</span></div>
-      <div><select name="gender" class="form-control" required>
-      <option value="">Select</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-      </select>
-      </div>
-    </div>
-      <div class="col-lg-4 mb-4"><br>
-      <div class="font-italic">Blood Group<span style="color:red">*</span></div>
-      <div><select name="blood" class="form-control" required>
-      <option value=""selected disabled>Select</option>
-      <?php
-      include 'conn.php';
-      $sql = 'select * from blood';
-      ($result = mysqli_query($conn, $sql)) or die('query unsuccessful.');
-      while ($row = mysqli_fetch_assoc($result)) { ?>
-       <option value=" <?php echo $row['blood_id']; ?>"> <?php echo $row[
-  'blood_group'
-]; ?> </option>
-     <?php }
-      ?>
-      </select>
-      </div>
-      </div>
-
-      </div>
-      <br>
-      <div class="row">
-      <div class="col-lg-4 mb-4">
-      <div class="font-italic">Address<span style="color:red">*</span></div>
-      <div><textarea class="form-control" name="address" required></textarea></div></div>
-    </div> <br>
-      <div class="row">
-        <div class="col-lg-4 mb-4">
-        <div><input type="submit" name="submit" class="btn btn-primary" value="Submit" style="cursor:pointer" onclick="popup()"></div>
-        </div>
-      </div>
-    </form>
-
-      </div>
-      </div>
-      </div>
-      <?php } else {echo '<div class="alert alert-danger"><b> Please Login First To Access Admin Portal.</b></div>'; ?>
-        <form method="post" name="" action="login.php" class="form-horizontal">
-          <div class="form-group">
-            <div class="col-sm-8 col-sm-offset-4" style="float:left">
-
-              <button class="btn btn-primary" name="submit" type="submit">Go to Login Page</button>
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-user-plus me-2"></i>Add New Donor
             </div>
-          </div>
-        </form>
-    <?php }
-  ?>
-     <script>
-     function popup() {
-       alert("Data added Successfully.");
-     }
-     </script>
+            <div class="card-body">
+                <?php if(!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <strong>Please fix the following errors:</strong>
+                        <ul class="mb-0 mt-2">
+                            <?php foreach($errors as $error): ?>
+                                <li><?php echo $error; ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                
+                <form name="donor" action="save_donor_data.php" method="post">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" name="fullname" class="form-control <?php echo in_array('Full name is required', $errors) ? 'is-invalid' : ''; ?>" 
+                                   required placeholder="Enter donor name" value="<?php echo htmlspecialchars($old_data['fullname'] ?? ''); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                            <input type="text" name="mobileno" class="form-control <?php echo (in_array('Mobile number is required', $errors) || in_array('Mobile number must be 10 digits', $errors) || in_array('Mobile number already registered!', $errors)) ? 'is-invalid' : ''; ?>" 
+                                   required placeholder="Enter 10-digit mobile number" value="<?php echo htmlspecialchars($old_data['mobileno'] ?? ''); ?>">
+                            <div class="form-text">Enter 10-digit mobile number</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email ID</label>
+                            <input type="email" name="emailid" class="form-control <?php echo in_array('Invalid email format', $errors) ? 'is-invalid' : ''; ?>" 
+                                   placeholder="Enter email address" value="<?php echo htmlspecialchars($old_data['emailid'] ?? ''); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Age <span class="text-danger">*</span></label>
+                            <input type="number" name="age" class="form-control <?php echo (in_array('Age is required', $errors) || in_array('Age must be between 18 and 65', $errors)) ? 'is-invalid' : ''; ?>" 
+                                   required placeholder="Enter age (18-65)" value="<?php echo htmlspecialchars($old_data['age'] ?? ''); ?>">
+                            <div class="form-text">Age must be between 18 and 65</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Gender <span class="text-danger">*</span></label>
+                            <select name="gender" class="form-select <?php echo in_array('Valid gender is required', $errors) ? 'is-invalid' : ''; ?>" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male" <?php echo (($old_data['gender'] ?? '') == 'Male') ? 'selected' : ''; ?>>Male</option>
+                                <option value="Female" <?php echo (($old_data['gender'] ?? '') == 'Female') ? 'selected' : ''; ?>>Female</option>
+                                <option value="Other" <?php echo (($old_data['gender'] ?? '') == 'Other') ? 'selected' : ''; ?>>Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Blood Group <span class="text-danger">*</span></label>
+                            <select name="blood" class="form-select <?php echo in_array('Blood group is required', $errors) ? 'is-invalid' : ''; ?>" required>
+                                <option value="" selected disabled>Select Blood Group</option>
+                                <?php
+                                $sql = 'SELECT * FROM blood';
+                                $result = mysqli_query($conn, $sql);
+                                while($row = mysqli_fetch_assoc($result)):
+                                ?>
+                                <option value="<?php echo $row['blood_id']; ?>" <?php echo (($old_data['blood'] ?? '') == $row['blood_id']) ? 'selected' : ''; ?>>
+                                    <?php echo $row['blood_group']; ?>
+                                </option>
+                                <?php endwhile; ?>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Address <span class="text-danger">*</span></label>
+                            <textarea class="form-control <?php echo in_array('Address is required', $errors) ? 'is-invalid' : ''; ?>" 
+                                      name="address" rows="3" required placeholder="Enter full address"><?php echo htmlspecialchars($old_data['address'] ?? ''); ?></textarea>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" name="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save Donor
+                            </button>
+                            <a href="donor_list.php" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Cancel
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

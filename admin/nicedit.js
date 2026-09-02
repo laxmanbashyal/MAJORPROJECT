@@ -1,10 +1,12 @@
 /* NicEdit - Micro Inline WYSIWYG
  * Copyright 2007-2008 Brian Kirchoff
- *
+ * Updated for Red & White Blood Bank Theme
+ * 
  * NicEdit is distributed under the terms of the MIT license
  * For more information visit http://nicedit.com/
  * Do not remove this copyright message
  */
+
 var bkExtend = function () {
   var A = arguments;
   if (A.length == 1) {
@@ -15,6 +17,7 @@ var bkExtend = function () {
   }
   return A[0];
 };
+
 function bkClass() {}
 bkClass.prototype.construct = function () {};
 bkClass.extend = function (C) {
@@ -29,6 +32,7 @@ bkClass.extend = function (C) {
   A.extend = this.extend;
   return A;
 };
+
 var bkElement = bkClass.extend({
   construct: function (B, A) {
     if (typeof B == 'string') {
@@ -133,6 +137,7 @@ var bkElement = bkClass.extend({
     return this;
   },
 });
+
 var bkLib = {
   isMSIE: navigator.appVersion.indexOf('MSIE') != -1,
   addEvent: function (C, B, A) {
@@ -213,12 +218,14 @@ var bkLib = {
     window.onload = bkLib.domLoaded;
   },
 };
+
 function $BK(A) {
   if (typeof A == 'string') {
     A = document.getElementById(A);
   }
   return A && !A.appendTo ? bkExtend(A, bkElement.prototype) : A;
 }
+
 var bkEvent = {
   addEvent: function (A, B) {
     if (B) {
@@ -238,9 +245,11 @@ var bkEvent = {
     }
   },
 };
+
 function __(A) {
   return A;
 }
+
 Function.prototype.closure = function () {
   var A = this,
     B = bkLib.toArray(arguments),
@@ -251,6 +260,7 @@ Function.prototype.closure = function () {
     }
   };
 };
+
 Function.prototype.closureListener = function () {
   var A = this,
     C = bkLib.toArray(arguments),
@@ -266,6 +276,7 @@ Function.prototype.closureListener = function () {
   };
 };
 
+/* ===== NICEDIT CONFIG ===== */
 var nicEditorConfig = bkClass.extend({
   buttons: {
     bold: {
@@ -307,7 +318,8 @@ var nicEditorConfig = bkClass.extend({
     outdent: { name: __('Remove Indent'), command: 'outdent', noActive: true },
     hr: { name: __('Horizontal Rule'), command: 'insertHorizontalRule', noActive: true },
   },
-  iconsPath: 'http://js.nicedit.com/nicEditIcons-latest.gif',
+  // Updated icon path - using a reliable CDN
+  iconsPath: 'https://cdn.jsdelivr.net/npm/nicedit@0.9.0/nicEditIcons-latest.gif',
   buttonList: [
     'save',
     'bold',
@@ -360,6 +372,7 @@ var nicEditorConfig = bkClass.extend({
     upload: 27,
   },
 });
+
 var nicEditors = {
   nicPlugins: [],
   editors: [],
@@ -382,6 +395,7 @@ var nicEditors = {
     }
   },
 };
+
 var nicEditor = bkClass.extend({
   construct: function (C) {
     this.options = new nicEditorConfig();
@@ -477,7 +491,9 @@ var nicEditor = bkClass.extend({
     return false;
   },
 });
+
 nicEditor = nicEditor.extend(bkEvent);
+
 var nicEditorInstance = bkClass.extend({
   isSelected: false,
   construct: function (G, D, C) {
@@ -496,7 +512,7 @@ var nicEditorInstance = bkClass.extend({
         );
       var E = {
         width: newX + 'px',
-        border: '1px solid #ccc',
+        border: '1px solid #D32F2F', // Red theme border
         borderTop: 0,
         overflowY: 'auto',
         overflowX: 'hidden',
@@ -657,6 +673,7 @@ var nicEditorInstance = bkClass.extend({
     document.execCommand(B, false, A);
   },
 });
+
 var nicEditorIFrameInstance = nicEditorInstance.extend({
   savedStyles: [],
   init: function () {
@@ -732,6 +749,8 @@ var nicEditorIFrameInstance = nicEditorInstance.extend({
     setTimeout(this.heightUpdate.closure(this), 100);
   },
 });
+
+/* ===== NICEDIT PANEL ===== */
 var nicEditorPanel = bkClass.extend({
   construct: function (E, B, A) {
     this.elm = E;
@@ -743,8 +762,9 @@ var nicEditorPanel = bkClass.extend({
       .setStyle({
         overflow: 'hidden',
         width: '100%',
-        border: '1px solid #cccccc',
-        backgroundColor: '#efefef',
+        border: '1px solid #D32F2F', // Red theme border
+        backgroundColor: '#ffffff', // White background
+        borderRadius: '8px 8px 0 0',
       })
       .addClass('panelContain');
     this.panelElm = new bkElement('DIV')
@@ -793,6 +813,8 @@ var nicEditorPanel = bkClass.extend({
     this.elm.remove();
   },
 });
+
+/* ===== NICEDIT BUTTON ===== */
 var nicEditorButton = bkClass.extend({
   construct: function (D, A, C, B) {
     this.options = C.buttons[A];
@@ -805,7 +827,12 @@ var nicEditorButton = bkClass.extend({
       .addClass('buttonContain')
       .appendTo(this.margin);
     this.border = new bkElement('DIV')
-      .setStyle({ backgroundColor: '#efefef', border: '1px solid #efefef' })
+      .setStyle({ 
+        backgroundColor: '#ffffff', 
+        border: '1px solid #e9ecef',
+        borderRadius: '4px',
+        transition: 'all 0.2s'
+      })
       .appendTo(this.contain);
     this.button = new bkElement('DIV')
       .setStyle({ width: '18px', height: '18px', overflow: 'hidden', zoom: 1, cursor: 'pointer' })
@@ -848,13 +875,25 @@ var nicEditorButton = bkClass.extend({
   setBg: function (A) {
     switch (A) {
       case 'hover':
-        var B = { border: '1px solid #666', backgroundColor: '#ddd' };
+        var B = { 
+          border: '1px solid #D32F2F', 
+          backgroundColor: '#FFCDD2',
+          borderRadius: '4px'
+        };
         break;
       case 'active':
-        var B = { border: '1px solid #666', backgroundColor: '#ccc' };
+        var B = { 
+          border: '1px solid #B71C1C', 
+          backgroundColor: '#D32F2F',
+          borderRadius: '4px'
+        };
         break;
       default:
-        var B = { border: '1px solid #efefef', backgroundColor: '#efefef' };
+        var B = { 
+          border: '1px solid #e9ecef', 
+          backgroundColor: '#ffffff',
+          borderRadius: '4px'
+        };
     }
     this.border.setStyle(B).addClass('button-' + A);
   },
@@ -943,6 +982,8 @@ var nicEditorButton = bkClass.extend({
     }
   },
 });
+
+/* ===== PLUGINS ===== */
 var nicPlugin = bkClass.extend({
   construct: function (B, A) {
     this.options = A;
@@ -977,11 +1018,13 @@ var nicEditorPane = bkClass.extend({
     this.pane = new bkElement('div')
       .setStyle({
         fontSize: '12px',
-        border: '1px solid #ccc',
+        border: '1px solid #D32F2F',
         overflow: 'hidden',
         padding: '4px',
         textAlign: 'left',
-        backgroundColor: '#ffffc9',
+        backgroundColor: '#ffffff',
+        borderRadius: '8px',
+        boxShadow: '0 8px 30px rgba(211, 47, 47, 0.15)',
       })
       .addClass('pane')
       .setStyle(B)
@@ -1026,6 +1069,7 @@ var nicEditorPane = bkClass.extend({
   },
 });
 
+/* ===== SELECT OPTIONS ===== */
 var nicSelectOptions = {
   buttons: {
     fontSize: {
@@ -1057,7 +1101,15 @@ var nicEditorSelect = bkClass.extend({
       .setStyle({ float: 'left', margin: '2px 1px 0 1px' })
       .appendTo(this.elm);
     this.contain = new bkElement('div')
-      .setStyle({ width: '90px', height: '20px', cursor: 'pointer', overflow: 'hidden' })
+      .setStyle({ 
+        width: '90px', 
+        height: '20px', 
+        cursor: 'pointer', 
+        overflow: 'hidden',
+        borderRadius: '4px',
+        border: '1px solid #e9ecef',
+        backgroundColor: '#ffffff'
+      })
       .addClass('selectContain')
       .addEvent('click', this.toggle.closure(this))
       .appendTo(this.margin);
@@ -1065,9 +1117,10 @@ var nicEditorSelect = bkClass.extend({
       .setStyle({
         overflow: 'hidden',
         zoom: 1,
-        border: '1px solid #ccc',
+        border: '1px solid #D32F2F',
         paddingLeft: '3px',
         backgroundColor: '#fff',
+        borderRadius: '4px',
       })
       .appendTo(this.contain);
     this.control = new bkElement('div')
@@ -1124,8 +1177,8 @@ var nicEditorSelect = bkClass.extend({
       width: '88px',
       padding: '0px',
       borderTop: 0,
-      borderLeft: '1px solid #ccc',
-      borderRight: '1px solid #ccc',
+      borderLeft: '1px solid #D32F2F',
+      borderRight: '1px solid #D32F2F',
       borderBottom: '0px',
       backgroundColor: '#fff',
     });
@@ -1133,7 +1186,7 @@ var nicEditorSelect = bkClass.extend({
       var B = this.selOptions[C];
       var A = new bkElement('div').setStyle({
         overflow: 'hidden',
-        borderBottom: '1px solid #ccc',
+        borderBottom: '1px solid #e9ecef',
         width: '88px',
         textAlign: 'left',
         overflow: 'hidden',
@@ -1160,10 +1213,10 @@ var nicEditorSelect = bkClass.extend({
     }
   },
   over: function (A) {
-    A.setStyle({ backgroundColor: '#ccc' });
+    A.setStyle({ backgroundColor: '#FFCDD2' });
   },
   out: function (A) {
-    A.setStyle({ backgroundColor: '#fff' });
+    A.setStyle({ backgroundColor: '#ffffff' });
   },
   add: function (B, A) {
     this.selOptions.push(new Array(B, A));
@@ -1173,6 +1226,7 @@ var nicEditorSelect = bkClass.extend({
     this.close();
   },
 });
+
 var nicEditorFontSizeSelect = nicEditorSelect.extend({
   sel: {
     1: '1&nbsp;(8pt)',
@@ -1189,6 +1243,7 @@ var nicEditorFontSizeSelect = nicEditorSelect.extend({
     }
   },
 });
+
 var nicEditorFontFamilySelect = nicEditorSelect.extend({
   sel: {
     arial: 'Arial',
@@ -1208,6 +1263,7 @@ var nicEditorFontFamilySelect = nicEditorSelect.extend({
     }
   },
 });
+
 var nicEditorFontFormatSelect = nicEditorSelect.extend({
   sel: {
     p: 'Paragraph',
@@ -1230,6 +1286,7 @@ var nicEditorFontFormatSelect = nicEditorSelect.extend({
     }
   },
 });
+
 nicEditors.registerPlugin(nicPlugin, nicSelectOptions);
 
 var nicButtonTips = bkClass.extend({
@@ -1246,7 +1303,14 @@ var nicButtonTips = bkClass.extend({
   create: function (A) {
     this.timer = null;
     if (!this.pane) {
-      this.pane = new nicEditorPane(A.button, this.ne, { fontSize: '12px', marginTop: '5px' });
+      this.pane = new nicEditorPane(A.button, this.ne, { 
+        fontSize: '12px', 
+        marginTop: '5px',
+        backgroundColor: '#B71C1C',
+        color: '#ffffff',
+        borderRadius: '8px',
+        padding: '8px 12px'
+      });
       this.pane.setContent(A.options.name);
     }
   },
@@ -1275,7 +1339,7 @@ var nicEditorAdvancedButton = nicEditorButton.extend({
         this.pane = new nicEditorPane(
           this.contain,
           this.ne,
-          { width: this.width || '270px', backgroundColor: '#fff' },
+          { width: this.width || '270px', backgroundColor: '#fff', borderRadius: '8px' },
           this
         );
         this.addPane();
@@ -1300,7 +1364,13 @@ var nicEditorAdvancedButton = nicEditorButton.extend({
       if (A == 'title') {
         new bkElement('div')
           .setContent(D.txt)
-          .setStyle({ fontSize: '14px', fontWeight: 'bold', padding: '0px', margin: '2px 0' })
+          .setStyle({ 
+            fontSize: '14px', 
+            fontWeight: 'bold', 
+            padding: '0px', 
+            margin: '2px 0',
+            color: '#B71C1C'
+          })
           .appendTo(this.form);
       } else {
         var B = new bkElement('div')
@@ -1329,8 +1399,10 @@ var nicEditorAdvancedButton = nicEditorButton.extend({
                 fontSize: '13px',
                 float: 'left',
                 height: '20px',
-                border: '1px solid #ccc',
+                border: '1px solid #e9ecef',
                 overflow: 'hidden',
+                borderRadius: '4px',
+                padding: '4px 8px'
               })
               .setStyle(D.style)
               .appendTo(B);
@@ -1338,7 +1410,13 @@ var nicEditorAdvancedButton = nicEditorButton.extend({
           case 'select':
             this.inputs[itm] = new bkElement('select')
               .setAttributes({ id: itm })
-              .setStyle({ border: '1px solid #ccc', float: 'left', margin: '2px 0' })
+              .setStyle({ 
+                border: '1px solid #e9ecef', 
+                float: 'left', 
+                margin: '2px 0',
+                borderRadius: '4px',
+                padding: '4px 8px'
+              })
               .appendTo(B);
             for (opt in D.options) {
               var E = new bkElement('option')
@@ -1350,7 +1428,12 @@ var nicEditorAdvancedButton = nicEditorButton.extend({
           case 'content':
             this.inputs[itm] = new bkElement('textarea')
               .setAttributes({ id: itm })
-              .setStyle({ border: '1px solid #ccc', float: 'left' })
+              .setStyle({ 
+                border: '1px solid #e9ecef', 
+                float: 'left',
+                borderRadius: '4px',
+                padding: '8px'
+              })
               .setStyle(D.style)
               .appendTo(B);
             this.inputs[itm].value = F;
@@ -1360,11 +1443,16 @@ var nicEditorAdvancedButton = nicEditorButton.extend({
     new bkElement('input')
       .setAttributes({ type: 'submit' })
       .setStyle({
-        backgroundColor: '#efefef',
-        border: '1px solid #ccc',
+        backgroundColor: '#D32F2F',
+        border: 'none',
+        borderRadius: '4px',
         margin: '3px 0',
         float: 'left',
         clear: 'both',
+        padding: '6px 16px',
+        color: '#ffffff',
+        cursor: 'pointer',
+        fontWeight: '600'
       })
       .appendTo(this.form);
     this.form.onsubmit = bkLib.cancelEvent;
@@ -1479,6 +1567,7 @@ var nicEditorColorButton = nicEditorAdvancedButton.extend({
     A.setStyle({ border: '2px solid ' + B });
   },
 });
+
 var nicEditorBgColorButton = nicEditorColorButton.extend({
   colorSelect: function (A) {
     this.ne.nicCommand('hiliteColor', A);
@@ -1775,7 +1864,12 @@ var nicUploadButton = nicEditorAdvancedButton.extend({
     this.im = this.ne.selectedInstance.selElm().parentTag('IMG');
     var A = new bkElement('div').setStyle({ padding: '10px' }).appendTo(this.pane.pane);
     new bkElement('div')
-      .setStyle({ fontSize: '14px', fontWeight: 'bold', paddingBottom: '5px' })
+      .setStyle({ 
+        fontSize: '14px', 
+        fontWeight: 'bold', 
+        paddingBottom: '5px',
+        color: '#B71C1C'
+      })
       .setContent('Insert an Image')
       .appendTo(A);
     this.fileInput = new bkElement('input').setAttributes({ type: 'file' }).appendTo(A);
@@ -1844,16 +1938,9 @@ var nicUploadButton = nicEditorAdvancedButton.extend({
 });
 nicEditors.registerPlugin(nicPlugin, nicUploadOptions);
 
-/* START CONFIG */
-var nicExampleOptions = {
-  buttons: {
-    example: { name: __('Some alt text for the button'), type: 'nicEditorExampleButton' },
-  } /* NICEDIT_REMOVE_START */,
-  iconFiles: { example: 'http://js.nicedit.com/nicEditIcons-latest.gif' } /* NICEDIT_REMOVE_END */,
-};
-/* END CONFIG */
-
+/* ===== INITIALIZE EDITOR ===== */
 bkLib.onDomLoaded(function () {
+  // Configure NicEdit with Red & White Theme
   new nicEditor({
     buttonList: [
       'fontSize',
@@ -1868,5 +1955,8 @@ bkLib.onDomLoaded(function () {
       'link',
       'unlink',
     ],
+    // Red & White theme styling
+    maxHeight: 400,
+    // Custom styles for the editor
   }).panelInstance('area4');
 });
