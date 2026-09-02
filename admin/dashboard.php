@@ -1,131 +1,211 @@
+<?php 
+
+include 'session.php';
+$page_title = 'Dashboard';
+$active = 'dashboard';
+include 'conn.php';
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
+    header('Location: login.php');
+    exit();
+}
+
+// Fetch stats
+$donors = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM donor_details"));
+$queries = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM contact_query"));
+$pending = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM contact_query WHERE query_status=2"));
+$read = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM contact_query WHERE query_status=1"));
+
+// Blood group distribution
+$blood_groups = [];
+$blood_sql = "SELECT b.blood_group, COUNT(d.donor_id) as count 
+              FROM donor_details d 
+              JOIN blood b ON d.donor_blood = b.blood_id 
+              GROUP BY b.blood_group";
+$blood_result = mysqli_query($conn, $blood_sql);
+while($row = mysqli_fetch_assoc($blood_result)) {
+    $blood_groups[$row['blood_group']] = $row['count'];
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Dashboard | Blood Bank</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-    body { background:#f5f7fb; color:#2c3e50; }
-    #sidebar{position:relative;margin-top:-20px}
-    #content{position:relative;margin-left:210px}
-    @media screen and (max-width: 600px) {
-      #content { position:relative;margin-left:auto;margin-right:auto; }
-    }
-    .panel-card { border-radius:18px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
-    .panel-card .panel-body { border-radius:18px; }
-    .page-title { font-size:28px; font-weight:bold; color:#2c3e50; }
-    .welcome-box { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:#fff; padding:20px; border-radius:18px; margin-bottom:20px; }
-  </style>
+    <?php include 'header.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .blood-card { 
+            background: white; 
+            border-radius: 12px; 
+            padding: 15px; 
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .blood-card:hover { transform: scale(1.05); }
+        .blood-card .blood-type { 
+            font-size: 24px; 
+            font-weight: 700; 
+            color: var(--primary-red);
+        }
+        .blood-card .blood-count { 
+            font-size: 18px; 
+            color: #2c3e50;
+        }
+        .blood-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+    </style>
 </head>
 <body>
-  <?php
-  include 'conn.php';
-  include 'session.php';
-  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) { ?>
 
-  <div id="header">
-    <?php include 'header.php'; ?>
-  </div>
-  <div id="sidebar">
-    <?php
-    $active = 'dashboard';
-    include 'sidebar.php';
-    ?>
-  </div>
-  <div id="content">
-    <div class="content-wrapper">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="welcome-box">
-              <h1 class="page-title">Welcome to the Admin Dashboard</h1>
-              <p class="mb-0">Manage donors, view blood requests, and handle user queries from one place.</p>
+    <div class="container-fluid">
+        <!-- Welcome Banner -->
+        <div class="card bg-danger text-white mb-4" style="background: var(--primary-gradient) !important;">
+            <div class="card-body">
+                <h2 class="mb-2"><i class="fas fa-heartbeat me-3"></i>Welcome to Blood Bank Admin</h2>
+                <p class="mb-0">Manage donors, blood inventory, and user queries all from one dashboard.</p>
             </div>
-          </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="panel panel-default panel-card">
-                  <div class="panel-body text-light" style="background:#D6EAF8;">
-                    <div class="stat-panel text-center">
-                      <?php
-                      $sql = 'SELECT * FROM donor_details';
-                      ($result = mysqli_query($conn, $sql)) or die('query failed.');
-                      $row = mysqli_num_rows($result);
-                      ?>
-                      <div class="stat-panel-number h1"><?php echo $row; ?></div>
-                      <div class="stat-panel-title text-uppercase">Blood Donors Available</div>
-                      <br>
-                      <button class="btn btn-danger" onclick="window.location.href='donor_list.php';">Full Detail</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              <div class="col-md-4">
-                <div class="panel panel-default panel-card">
-                  <div class="panel-body text-light" style="background:#ABEBC6;">
-                    <div class="stat-panel text-center">
-                      <?php
-                      $sql1 = 'SELECT * FROM contact_query';
-                      ($result1 = mysqli_query($conn, $sql1)) or die('query failed.');
-                      $row1 = mysqli_num_rows($result1);
-                      ?>
-                      <div class="stat-panel-number h1"><?php echo $row1; ?></div>
-                      <div class="stat-panel-title text-uppercase">All User Queries</div>
-                      <br>
-                      <button class="btn btn-danger" onclick="window.location.href='query.php';">Full Detail</button>
-                    </div>
-                  </div>
+        <!-- Stats Row -->
+        <div class="row g-4 mb-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card">
+                    <h3 class="stat-number"><?php echo $donors; ?></h3>
+                    <p class="stat-label"><i class="fas fa-user me-2"></i>Total Donors</p>
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
                 </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="panel panel-default panel-card">
-                  <div class="panel-body text-light" style="background:#E8DAEF;">
-                    <div class="stat-panel text-center">
-                      <?php
-                      $sql2 = 'SELECT * FROM contact_query WHERE query_status=2';
-                      ($result2 = mysqli_query($conn, $sql2)) or die('query failed.');
-                      $row2 = mysqli_num_rows($result2);
-                      ?>
-                      <div class="stat-panel-number h1"><?php echo $row2; ?></div>
-                      <div class="stat-panel-title text-uppercase">Pending Queries</div>
-                      <br>
-                      <button class="btn btn-danger" onclick="window.location.href='pending_query.php';">Full Detail</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card" style="border-left-color: #2196F3;">
+                    <h3 class="stat-number" style="color: #2196F3;"><?php echo $queries; ?></h3>
+                    <p class="stat-label"><i class="fas fa-envelope me-2"></i>Total Queries</p>
+                    <div class="stat-icon" style="color: #2196F3;"><i class="fas fa-envelope"></i></div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card" style="border-left-color: #FF9800;">
+                    <h3 class="stat-number" style="color: #FF9800;"><?php echo $pending; ?></h3>
+                    <p class="stat-label"><i class="fas fa-clock me-2"></i>Pending Queries</p>
+                    <div class="stat-icon" style="color: #FF9800;"><i class="fas fa-clock"></i></div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card" style="border-left-color: #4CAF50;">
+                    <h3 class="stat-number" style="color: #4CAF50;"><?php echo $read; ?></h3>
+                    <p class="stat-label"><i class="fas fa-check-circle me-2"></i>Read Queries</p>
+                    <div class="stat-icon" style="color: #4CAF50;"><i class="fas fa-check-circle"></i></div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <!-- Blood Group Distribution & Chart -->
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-2"></i>Blood Group Distribution
+                    </div>
+                    <div class="card-body">
+                        <canvas id="bloodChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-tint me-2"></i>Blood Groups Available
+                    </div>
+                    <div class="card-body">
+                        <?php if(!empty($blood_groups)): ?>
+                            <?php foreach($blood_groups as $group => $count): ?>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <span class="blood-dot" style="background: <?php echo $group == 'A+' ? '#D32F2F' : ($group == 'B+' ? '#1976D2' : ($group == 'AB+' ? '#388E3C' : '#F57C00')); ?>"></span>
+                                        <strong><?php echo $group; ?></strong>
+                                    </div>
+                                    <span class="badge bg-danger rounded-pill"><?php echo $count; ?></span>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="text-muted text-center">No donors registered yet.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Donors -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-users me-2"></i>Recent Donors
+                <a href="donor_list.php" class="btn btn-sm btn-light float-end">View All</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Blood Group</th>
+                                <th>Mobile</th>
+                                <th>Gender</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $recent = mysqli_query($conn, "SELECT d.*, b.blood_group FROM donor_details d JOIN blood b ON d.donor_blood = b.blood_id ORDER BY d.donor_id DESC LIMIT 5");
+                            $i = 1;
+                            while($row = mysqli_fetch_assoc($recent)):
+                            ?>
+                            <tr>
+                                <td><?php echo $i++; ?></td>
+                                <td><?php echo $row['donor_name']; ?></td>
+                                <td><span class="badge bg-danger"><?php echo $row['blood_group']; ?></span></td>
+                                <td><?php echo $row['donor_number']; ?></td>
+                                <td><?php echo $row['donor_gender']; ?></td>
+                            </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <?php } else { ?>
-  <div class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="panel panel-default panel-card">
-          <div class="panel-body" style="padding:30px;">
-            <h3 class="text-center">Admin Access Required</h3>
-            <p class="text-center">Please log in to view the management panel.</p>
-            <div class="text-center">
-              <a href="login.php" class="btn btn-danger">Go to Login Page</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <?php }
-  ?>
+
+    <script>
+        // Blood Group Chart
+        const ctx = document.getElementById('bloodChart').getContext('2d');
+        const bloodData = <?php echo json_encode(array_values($blood_groups)); ?>;
+        const bloodLabels = <?php echo json_encode(array_keys($blood_groups)); ?>;
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: bloodLabels,
+                datasets: [{
+                    label: 'Donors',
+                    data: bloodData,
+                    backgroundColor: ['#D32F2F', '#1976D2', '#388E3C', '#F57C00', '#7B1FA2', '#00838F', '#C2185B', '#455A64'],
+                    borderRadius: 8,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f0f0f0' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

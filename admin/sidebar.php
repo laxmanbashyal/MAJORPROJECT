@@ -1,96 +1,77 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<style>
-body {
-  margin: 0;
-font-family: 'Averia Gruesa Libre';font-size: 15px;
-    color:#F8F9F9;
+<?php
+// This is the standalone sidebar - only use if you prefer not to use the integrated header.php
+// Otherwise, the sidebar is already included in the new header.php
+?>
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <h2>🩸 Blood<span>Bank</span></h2>
+        <small>Admin Panel</small>
+    </div>
+    
+    <nav class="nav flex-column">
+        <div class="nav-item">
+            <a href="dashboard.php" class="nav-link <?php echo ($active == 'dashboard') ? 'active' : ''; ?>">
+                <i class="fas fa-chart-pie"></i> Dashboard
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="add_donor.php" class="nav-link <?php echo ($active == 'add') ? 'active' : ''; ?>">
+                <i class="fas fa-user-plus"></i> Add Donor
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="donor_list.php" class="nav-link <?php echo ($active == 'list') ? 'active' : ''; ?>">
+                <i class="fas fa-users"></i> Donor List
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="query.php" class="nav-link <?php echo ($active == 'query') ? 'active' : ''; ?>">
+                <i class="fas fa-envelope"></i> User Queries
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="pending_query.php" class="nav-link <?php echo ($active == 'pending') ? 'active' : ''; ?>">
+                <i class="fas fa-clock"></i> Pending Queries
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="pages.php" class="nav-link <?php echo ($active == 'pages') ? 'active' : ''; ?>">
+                <i class="fas fa-file-alt"></i> Manage Pages
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="update_contact.php" class="nav-link <?php echo ($active == 'contact') ? 'active' : ''; ?>">
+                <i class="fas fa-address-card"></i> Contact Info
+            </a>
+        </div>
+        <div class="nav-item mt-3 border-top pt-3">
+            <a href="change_password.php" class="nav-link <?php echo ($active == 'password') ? 'active' : ''; ?>">
+                <i class="fas fa-key"></i> Change Password
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="logout.php" class="nav-link text-danger" onclick="return confirmLogout();">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </nav>
+</aside>
+
+<script>
+function confirmLogout() {
+    Swal.fire({
+        title: 'Logout?',
+        text: 'Are you sure you want to logout?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: '<i class="fas fa-sign-out-alt me-2"></i>Yes, logout'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = 'logout.php';
+        }
+    });
+    return false;
 }
-
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 210px;
-  background-color: #333333;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-
-}
-
-.sidebar a {
-  display: block;
-  color: white;
-
-  padding: 16px;
-  text-decoration: none;
-}
-
-
-
-.sidebar a:hover:not(.active) {
-  background-color: #555;
-  color: white;
-}
-
-div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
-}
-
-@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .sidebar a {float: left;}
-  div.content {margin-left: 0;}
-}
-a.act{
-background: linear-gradient(to right, #00C9FF 0%, #92FE9D 100%);
-color: black;
-border-radius:10px;
-}
-
-
-@media screen and (max-width: 400px) {
-  .sidebar a {
-    text-align: center;
-    float: none;
-  }
-}
-</style>
-</head>
-<body>
-
-<div class="sidebar" ><b>
-  <a href="dashboard.php"   <?php if ($active == 'dashboard') {
-    echo "class='act'";
-  } ?>><span class="glyphicon glyphicon-dashboard"></span>&nbsp&nbspDashboard</a>
-  <a href="add_donor.php"   <?php if ($active == 'add') {
-    echo "class='act'";
-  } ?>><span class="glyphicon glyphicon-pencil"></span>&nbsp&nbspAdd Donor</a>
-  <a href="donor_list.php"   <?php if ($active == 'list') {
-    echo "class='act'";
-  } ?>><span class="glyphicon glyphicon-list-alt"></span>&nbsp&nbsp Donor List</a>
-  <a href="query.php"   <?php if ($active == 'query') {
-    echo "class='act'";
-  } ?>><span class="glyphicon glyphicon-check"></span>&nbsp&nbspCheck Contactus Query</a>
-
-    <a href="pages.php"   <?php if ($active == 'pages') {
-      echo "class='act'";
-    } ?>><span class="glyphicon glyphicon-edit"></span>&nbsp&nbspManage Pages</a>
-  <a href="update_contact.php"   <?php if ($active == 'contact') {
-    echo "class='act'";
-  } ?>><span class="glyphicon glyphicon-edit"></span>&nbsp&nbspUpdate Contact Info</a>
-
-</div>
+</script>
